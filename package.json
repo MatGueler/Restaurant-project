@@ -1,0 +1,23 @@
+{
+  "name": "restaurant-project",
+  "version": "1.0.0",
+  "description": "Project to manage restaurant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^9.30.1",
+    "jest": "^30.0.4",
+    "prettier": "^3.6.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "husky": "^9.1.7"
+  }
+}
