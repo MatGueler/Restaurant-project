@@ -1,12 +1,26 @@
-import express from 'express'
+import express from 'express';
+import dotenv from 'dotenv';
+import sequelize from './connection/database.cjs';
+import customerRoutes from './routes/customerRoutes.js';
 
-const app = express()
-const port = 3000
+dotenv.config();
+
+const app = express();
+app.use(express.json());
+
+app.use('/customer', customerRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+    res.send('API está funcionando 🚀');
+});
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('🟢 Conectado ao banco de dados!');
+        console.log(`🚀 Servidor rodando na porta ${PORT}`);
+    } catch (err) {
+        console.error('🔴 Falha ao conectar ao banco:', err);
+    }
+});
