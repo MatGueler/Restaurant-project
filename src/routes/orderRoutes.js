@@ -22,6 +22,6 @@ router.patch(
 )
 
 // get customer orders
-router.get('/customer/orders/:orderId', orderController.getCustomerOrders)
+router.get('/customer/orders/:customer_id', orderController.getCustomerOrders)
 
 export default router

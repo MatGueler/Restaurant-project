@@ -34,11 +34,31 @@ const createOrder = async ({ customer_id, items }) => {
     total_price: orderTotalPrice,
   })
 
+  const orderItemsData = items.map((item) => {
+    const menuItem = menuItems.find((i) => i.id === item.menu_item_id)
+    return {
+      order_id: order.id,
+      menu_item_id: menuItem.id,
+      quantity: item.quantity,
+      price_at_order: menuItem.price,
+    }
+  })
+
+  await orderRepository.createOrderItems(orderItemsData)
+
   return order
 }
 
-const getCustomerOrders = async ({ customer_id }) => {
-  const orders = await orderRepository.getCustomerOrders(customer_id)
+export const getOrdersByCustomer = async ({
+  customer_id,
+  offset = 0,
+  limit = 20,
+}) => {
+  const orders = await orderRepository.getOrdersByCustomer({
+    customer_id,
+    offset,
+    limit,
+  })
 
   return orders
 }
@@ -100,17 +120,25 @@ const modifyOrder = async (order_id, { items }) => {
     throw errorHandler.badRequest('Order total price is invalid')
   }
 
-  const order = await orderRepository.patchOrder(order_id, {
-    items,
-    total_price: orderTotalPrice,
+  const orderItemsData = items.map((item) => {
+    const menuItem = menuItems.find((i) => i.id === item.menu_item_id)
+    return {
+      order_id: order_id,
+      menu_item_id: menuItem.id,
+      quantity: item.quantity,
+      price_at_order: menuItem.price,
+    }
   })
 
-  return order
+  await orderRepository.updateOrderWithItems(order_id, {
+    items: orderItemsData,
+    total_price: orderTotalPrice,
+  })
 }
 
 export default {
   createOrder,
-  getCustomerOrders,
+  getOrdersByCustomer,
   getOrders,
   patchOrderStatus,
   modifyOrder,

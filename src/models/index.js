@@ -40,3 +40,9 @@ module.exports = db
 
 db.Customer.hasMany(db.Order, { foreignKey: 'customer_id' })
 db.Order.belongsTo(db.Customer, { foreignKey: 'customer_id' })
+
+db.OrderItem.belongsTo(db.Order, { foreignKey: 'order_id' })
+db.Order.hasMany(db.OrderItem, { foreignKey: 'order_id' })
+
+db.OrderItem.belongsTo(db.MenuItem, { foreignKey: 'menu_item_id' })
+db.MenuItem.hasMany(db.OrderItem, { foreignKey: 'menu_item_id' })

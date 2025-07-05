@@ -39,6 +39,17 @@ export const getMenuItemsByIds = async (menuItemIds) => {
   return menuItems.map((item) => item.get({ plain: true }))
 }
 
+export const getMenuItemsByOrder = async (order_id) => {
+  const order = await db.Order.findByPk(order_id, {
+    include: {
+      model: db.OrderItem,
+      include: db.MenuItem, // traz o prato vinculado ao item
+    },
+  })
+
+  return order?.get({ plain: true })
+}
+
 export default {
   createDisheToMenu,
   getMenuDishes,

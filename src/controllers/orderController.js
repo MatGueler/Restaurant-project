@@ -13,7 +13,11 @@ const createOrder = async (req, res) => {
 
 const getCustomerOrders = async (req, res) => {
   try {
-    const orders = await orderService.getCustomerOrders(req.query)
+    const { customer_id } = req.params
+    const orders = await orderService.getOrdersByCustomer({
+      customer_id,
+      ...req.query,
+    })
     return res.status(200).json(orders)
   } catch (err) {
     return res
