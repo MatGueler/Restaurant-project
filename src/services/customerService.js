@@ -1,15 +1,22 @@
-import { createCustomerRepository, getCustomerByEmail } from '../repository/customerRepository.js';
-import errorHandler from '../utils/errorHandler.js';
+import customerRepository from '../repository/customerRepository.js'
+import errorHandler from '../utils/errorHandler.js'
+import { formatPhoneNumber } from '../utils/helpers.js'
 
 const createCustomerService = async ({ name, email, phone }) => {
-    const existing = await getCustomerByEmail({ email });
+  const existing = await customerRepository.getCustomerByEmail({ email })
 
-    if (existing) {
-        throw errorHandler.badRequest('Customer with this email already exists');
-    }
+  if (existing) {
+    throw errorHandler.badRequest('Customer with this email already exists')
+  }
 
-    const customer = await createCustomerRepository({ name, email, phone });
-    return customer;
-};
+  const onlyPhoneNumbers = formatPhoneNumber(phone)
 
-export default createCustomerService;
+  const customer = await customerRepository.createCustomer({
+    name,
+    email,
+    phone: onlyPhoneNumbers,
+  })
+  return customer
+}
+
+export default createCustomerService

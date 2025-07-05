@@ -1,10 +1,8 @@
-import { Router } from 'express';
+import router from './router.js'
 
-const router = Router();
+import customerController from '../controllers/customerController.js'
+import validateCustomer from '../middlewares/validateCustomer.js'
 
-import customerController from '../controllers/customerController.js';
-import validateCustomer from '../middlewares/validateCustomer.js';
+router.post('/customers', validateCustomer, customerController.createCustomer)
 
-router.post('/', validateCustomer, customerController.createCustomer);
-
-export default router;
+export default router

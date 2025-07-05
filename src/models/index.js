@@ -1,40 +1,42 @@
-'use strict';
+'use strict'
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const db = {};
+const fs = require('fs')
+const path = require('path')
+const Sequelize = require('sequelize')
+const process = require('process')
+const basename = path.basename(__filename)
+const env = process.env.NODE_ENV || 'development'
+const db = {}
 
-const sequelize = require('../connection/database.cjs');
+const sequelize = require('../connection/database.cjs')
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
+fs.readdirSync(__dirname)
+  .filter((file) => {
     return (
       file.indexOf('.') !== 0 &&
       file !== basename &&
       file.slice(-3) === '.js' &&
       file.indexOf('.test.js') === -1
-    );
+    )
   })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+  .forEach((file) => {
+    const model = require(path.join(__dirname, file))(
+      sequelize,
+      Sequelize.DataTypes
+    )
+    db[model.name] = model
+  })
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
-    db[modelName].associate(db);
+    db[modelName].associate(db)
   }
-});
+})
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.sequelize = sequelize
+db.Sequelize = Sequelize
 
-module.exports = db;
+module.exports = db
 
 db.Customer.hasMany(db.Order, { foreignKey: 'customerId' })
 db.Order.belongsTo(db.Customer, { foreignKey: 'customerId' })
@@ -50,4 +52,3 @@ db.MenuItem.belongsToMany(db.Order, {
   foreignKey: 'menuItemId',
   otherKey: 'orderId',
 })
-
