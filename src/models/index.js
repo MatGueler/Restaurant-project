@@ -38,17 +38,5 @@ db.Sequelize = Sequelize
 
 module.exports = db
 
-db.Customer.hasMany(db.Order, { foreignKey: 'customerId' })
-db.Order.belongsTo(db.Customer, { foreignKey: 'customerId' })
-
-db.Order.belongsToMany(db.MenuItem, {
-  through: db.OrderItem,
-  foreignKey: 'orderId',
-  otherKey: 'menuItemId',
-})
-
-db.MenuItem.belongsToMany(db.Order, {
-  through: db.OrderItem,
-  foreignKey: 'menuItemId',
-  otherKey: 'orderId',
-})
+db.Customer.hasMany(db.Order, { foreignKey: 'customer_id' })
+db.Order.belongsTo(db.Customer, { foreignKey: 'customer_id' })
