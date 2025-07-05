@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import sequelize from './connection/database.cjs'
 import customerRoutes from './routes/customerRoutes.js'
 import menuRoutes from './routes/menuRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 
 dotenv.config()
 
@@ -11,6 +12,7 @@ app.use(express.json())
 
 app.use(customerRoutes)
 app.use(menuRoutes)
+app.use(orderRoutes)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, async () => {
