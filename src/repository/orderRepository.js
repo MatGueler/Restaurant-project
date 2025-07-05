@@ -1,10 +1,17 @@
 import db from '../models/index.js'
 
 const createOrder = async (order) => {
-  console.log('Creating order:', order)
   const createdOrder = await db.Order.create(order)
 
   return createdOrder
+}
+
+const getOrderById = async (order_id) => {
+  const order = await db.Order.findOne({
+    where: { id: order_id },
+  })
+
+  return order
 }
 
 const getCustomerOrders = async ({ page = 1, limit = 10, customer_id }) => {
@@ -51,8 +58,33 @@ const getOrders = async ({ page = 1, limit = 10 }) => {
   }
 }
 
+const updateOrderStatus = async (order_id, { status }) => {
+  await db.Order.update(
+    { status },
+    {
+      where: { id: order_id },
+    }
+  )
+}
+
+const patchOrder = async (order_id, { items, total_price }) => {
+  await db.Order.update(
+    {
+      items,
+      total_price,
+    },
+    {
+      where: { id: order_id },
+      returning: true,
+    }
+  )
+}
+
 export default {
   createOrder,
+  getOrderById,
   getCustomerOrders,
   getOrders,
+  updateOrderStatus,
+  patchOrder,
 }

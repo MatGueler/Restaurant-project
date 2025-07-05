@@ -1,5 +1,5 @@
 import errorHandlerResponse from '../utils/errorHandlerResponse.js'
-import { dishesCategories } from '../constants/dishes.js'
+import { DISHES_CATEGORIES } from '../constants/dishes.js'
 
 export default (req, res, next) => {
   const { name, description, price, category } = req.body
@@ -21,10 +21,10 @@ export default (req, res, next) => {
   }
 
   // Allowed categories: starter, main_course, dessert, drink.
-  if (category && !dishesCategories.includes(category)) {
+  if (category && !DISHES_CATEGORIES.includes(category)) {
     return errorHandlerResponse.badRequest({
       res,
-      message: `Category must be one of: ${dishesCategories.join(', ')}`,
+      message: `Category must be one of: ${DISHES_CATEGORIES.join(', ')}`,
     })
   }
 

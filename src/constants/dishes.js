@@ -1,1 +1,1 @@
-export const dishesCategories = ['starter', 'main_course', 'dessert', 'drink']
+export const DISHES_CATEGORIES = ['starter', 'main_course', 'dessert', 'drink']

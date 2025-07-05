@@ -1,6 +1,6 @@
 import menuRepository from '../repository/menuRepository.js'
 import errorHandler from '../utils/errorHandler.js'
-import { dishesCategories } from '../constants/dishes.js'
+import { DISHES_CATEGORIES } from '../constants/dishes.js'
 
 const createDisheToMenu = async ({ name, description, price, category }) => {
   const dish = await menuRepository.createDisheToMenu({
@@ -13,9 +13,9 @@ const createDisheToMenu = async ({ name, description, price, category }) => {
 }
 
 const getMenuDishes = async ({ category, page, limit }) => {
-  if (category && !dishesCategories.includes(category)) {
+  if (category && !DISHES_CATEGORIES.includes(category)) {
     throw errorHandler.badRequest(
-      `Category must be one of: ${dishesCategories.join(', ')}`
+      `Category must be one of: ${DISHES_CATEGORIES.join(', ')}`
     )
   }
 
