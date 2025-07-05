@@ -19,4 +19,19 @@ const createCustomerService = async ({ name, email, phone }) => {
   return customer
 }
 
-export default createCustomerService
+const getCustomers = async ({ page = 1, limit = 10 }) => {
+  const pageNumber = page <= 0 ? 1 : page
+  const offset = (pageNumber - 1) * limit
+
+  const customers = await customerRepository.getCustomers({
+    offset,
+    limit,
+  })
+
+  return customers
+}
+
+export default {
+  createCustomerService,
+  getCustomers,
+}

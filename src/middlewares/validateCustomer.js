@@ -4,7 +4,7 @@ export default (req, res, next) => {
   if (!name || !email || !phone) {
     return res
       .status(400)
-      .json({ error: 'Todos os campos (name, email, phone) são obrigatórios.' })
+      .json({ error: 'All fields (name, email, phone) are required.' })
   }
 
   next()

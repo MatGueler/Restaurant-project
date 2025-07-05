@@ -6,9 +6,42 @@ const createCustomer = async ({ name, email, phone }) => {
   return customer
 }
 
+const getCustomerById = async (id) => {
+  const existing = await db.Customer.findOne({ where: { id } })
+  if (!existing) {
+    throw new Error('Customer not found')
+  }
+  return existing
+}
+
 const getCustomerByEmail = async ({ email }) => {
   const existing = await db.Customer.findOne({ where: { email } })
   return existing
 }
 
-export default { createCustomer, getCustomerByEmail }
+const getCustomers = async ({ offset, limit }) => {
+  const where = {}
+
+  const { count, rows } = await db.Customer.findAndCountAll({
+    where,
+    offset,
+    limit,
+    order: [['id', 'ASC']],
+  })
+
+  return {
+    data: rows,
+    meta: {
+      totalItems: count,
+      totalPages: Math.ceil(count / limit),
+      page: Math.floor(offset / limit) + 1,
+    },
+  }
+}
+
+export default {
+  createCustomer,
+  getCustomerById,
+  getCustomerByEmail,
+  getCustomers,
+}

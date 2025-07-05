@@ -9,7 +9,8 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
     "start": "node src/app.js",
-    "migration:run": "npx sequelize-cli db:migrate"
+    "migration:run": "npx sequelize-cli db:migrate",
+    "slz:seed": "npx sequelize-cli db:seed:all"
   },
   "author": "",
   "license": "ISC",

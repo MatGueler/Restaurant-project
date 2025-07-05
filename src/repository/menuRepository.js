@@ -6,15 +6,10 @@ const createDisheToMenu = async (dish) => {
   return customer
 }
 
-export const getMenuDishes = async ({ page = 1, limit = 1, category }) => {
-  const where = {}
+export const getMenuDishes = async ({ offset = 0, limit = 1, category }) => {
+  let where = {}
+
   if (category) where.category = category
-
-  const pageNumber = page === 0 ? 1 : page
-
-  const offset = (pageNumber - 1) * limit
-
-  console.log('where', offset, limit, where)
 
   const { count, rows } = await db.MenuItem.findAndCountAll({
     where,
@@ -26,14 +21,26 @@ export const getMenuDishes = async ({ page = 1, limit = 1, category }) => {
   return {
     data: rows,
     meta: {
-      page: Number(pageNumber),
+      offset: Number(offset),
       totalPages: Math.ceil(count / limit),
       totalItems: count,
     },
   }
 }
 
+export const getMenuItemsByIds = async (menuItemIds) => {
+  const menuItems = await db.MenuItem.findAll({
+    where: {
+      id: menuItemIds, // Sequelize já entende que é um array = IN
+    },
+    order: [['id', 'ASC']],
+  })
+
+  return menuItems.map((item) => item.get({ plain: true }))
+}
+
 export default {
   createDisheToMenu,
   getMenuDishes,
+  getMenuItemsByIds,
 }

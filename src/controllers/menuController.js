@@ -7,18 +7,18 @@ const createDisheToMenu = async (req, res) => {
   } catch (err) {
     return res
       .status(err.status || 500)
-      .json({ error: err.message || 'Erro interno no servidor' })
+      .json({ error: err.message || 'Internal server error' })
   }
 }
 
 const getMenuDishes = async (req, res) => {
   try {
     const dishes = await menuService.getMenuDishes(req.query)
-    return res.status(201).json(dishes)
+    return res.status(200).json(dishes)
   } catch (err) {
     return res
       .status(err.status || 500)
-      .json({ error: err.message || 'Erro interno no servidor' })
+      .json({ error: err.message || 'Internal server error' })
   }
 }
 

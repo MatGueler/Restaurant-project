@@ -12,14 +12,18 @@ const createDisheToMenu = async ({ name, description, price, category }) => {
   return dish
 }
 
-const getMenuDishes = async ({ category, ...query }) => {
+const getMenuDishes = async ({ category, page, limit }) => {
   if (category && !dishesCategories.includes(category)) {
     throw errorHandler.badRequest(
       `Category must be one of: ${dishesCategories.join(', ')}`
     )
   }
 
-  const dishes = await menuRepository.getMenuDishes({ category, ...query })
+  const pageNumber = Number(page === 0 ? 1 : page)
+
+  const offset = (pageNumber - 1) * limit
+
+  const dishes = await menuRepository.getMenuDishes({ offset, limit, category })
   return dishes
 }
 
