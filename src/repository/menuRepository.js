@@ -1,9 +1,9 @@
 import db from '../models/index.js'
 
 const createDisheToMenu = async (dish) => {
-  const customer = await db.Customer.create(dish)
+  const menu = await db.MenuItem.create(dish)
 
-  return customer
+  return menu
 }
 
 export const getMenuDishes = async ({ offset = 0, limit = 1, category }) => {
