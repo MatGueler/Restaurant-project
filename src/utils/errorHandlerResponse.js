@@ -1,6 +1,6 @@
 const errorHandlerResponse = () => {
   const create = ({ res, status, message }) => {
-    res.status(status || 500).json({
+    res.status(status).json({
       error: message || 'Internal Server Error',
     })
   }

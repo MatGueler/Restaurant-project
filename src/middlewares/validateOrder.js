@@ -2,7 +2,7 @@ import errorHandlerResponse from '../utils/errorHandlerResponse.js'
 import { ORDER_STATUS } from '../constants/orderStatus.js'
 
 export const createOrder = (req, res, next) => {
-  const { customer_id, items } = req.body
+  const { customer_id = '', items = [] } = req.body || {}
 
   if (!customer_id) {
     return errorHandlerResponse.badRequest({
@@ -38,7 +38,7 @@ export const createOrder = (req, res, next) => {
 }
 
 export const patchOrderStatus = (req, res, next) => {
-  const { status } = req.body
+  const { status = '' } = req.body || {}
 
   if (!ORDER_STATUS[status]) {
     return errorHandlerResponse.badRequest({
@@ -51,8 +51,8 @@ export const patchOrderStatus = (req, res, next) => {
 }
 
 export const patchOrderItems = (req, res, next) => {
-  const { order_id } = req.params
-  const { items } = req.body
+  const { order_id = '' } = req.params || {}
+  const { items = [] } = req.body || {}
 
   if (!order_id) {
     return errorHandlerResponse.badRequest({
