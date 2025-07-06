@@ -11,6 +11,7 @@ API project for restaurant management
 
 ## Estrutura de Pastas
 
+```bash
 src/
 ├── services/
 ├── repository/
@@ -25,6 +26,7 @@ src/
 ├── constants/
 └── utils/
 tests/
+```
 
 ## Rodando localmente
 
@@ -67,5 +69,7 @@ Coverage is arount 70%
 ## Routes
 
 [Routes](./routes.md)
+
+## Database
 
 [Architecture database](./arch.png)
