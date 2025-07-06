@@ -1,0 +1,257 @@
+{
+	"info": {
+		"_postman_id": "81e52d1b-a00b-471c-b0fc-fe028e3ce150",
+		"name": "Restaurant",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26211168",
+		"_collection_link": "https://dark-flare-943133.postman.co/workspace/Maia-Health-Tech~79dcacde-a6c1-47bf-aebb-d5355b4a997d/collection/26211168-81e52d1b-a00b-471c-b0fc-fe028e3ce150?action=share&source=collection_link&creator=26211168"
+	},
+	"item": [
+		{
+			"name": "createCustomer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Francisca Alves\",\r\n    \"email\": \"fancis@email.com\",\r\n    \"phone\": \"99999-9999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDishes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/menu?limit=10&page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"menu"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create dish to menu",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Macarronada\",\r\n    \"description\":\"Macarrão a alho e óleo\",\r\n    \"price\":250,\r\n    \"category\":\"main_course\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/menu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"menu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCustomers",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/customer/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"customer",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer_id\": \"1\",\r\n    \"items\": [\r\n        {\r\n            \"menu_item_id\": 1,\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patchOrderStatus",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"preparing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/order/:order_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"order",
+						":order_id"
+					],
+					"variable": [
+						{
+							"key": "order_id",
+							"value": "5",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patchOrderContent",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"items\":[ {\r\n            \"menu_item_id\": 1,\r\n            \"quantity\": 5\r\n        },\r\n         {\r\n            \"menu_item_id\": 2,\r\n            \"quantity\": 2\r\n        }\r\n       ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/order/modify/:order_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"order",
+						"modify",
+						":order_id"
+					],
+					"variable": [
+						{
+							"key": "order_id",
+							"value": "5",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOrdersByCustomerId",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/customer/orders/:customer_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"customer",
+						"orders",
+						":customer_id"
+					],
+					"variable": [
+						{
+							"key": "customer_id",
+							"value": "1",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

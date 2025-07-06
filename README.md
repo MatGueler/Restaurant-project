@@ -49,8 +49,9 @@ npm install
 ```bash
 npm run db:create
 npm run db:migrate
-npm run db:seed   
+npm run db:seed
 ```
+
 These commands use the DATABASE_URL from your .env
 
 5. Run start comand
@@ -64,6 +65,7 @@ npm run start
 ```bash
 npm run test
 ```
+
 Coverage is arount 70%
 
 ## Routes
@@ -73,3 +75,7 @@ Coverage is arount 70%
 ## Database
 
 [Architecture database](./arch.png)
+
+## Postman collection (some routes)
+
+[Collection](./Restaurant.postman_collection.json)
