@@ -8,12 +8,6 @@ describe('Customer Service - Middleware Validation', () => {
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
-      send: jest.fn(),
-      end: jest.fn(),
-      locals: {},
-      get: jest.fn(),
-      set: jest.fn(),
-      headersSent: false,
     }
     next = jest.fn()
     jest.clearAllMocks()

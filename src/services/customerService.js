@@ -16,6 +16,7 @@ const createCustomerService = async ({ name, email, phone }) => {
     email,
     phone: onlyPhoneNumbers,
   })
+
   return customer
 }
 

@@ -1,5 +1,6 @@
 import errorHandlerResponse from '../utils/errorHandlerResponse.js'
 import { ORDER_STATUS } from '../constants/orderStatus.js'
+import { DISHES_CATEGORIES } from '../constants/dishes.js'
 
 export const createOrder = (req, res, next) => {
   const { customer_id = '', items = [] } = req.body || {}
@@ -87,8 +88,22 @@ export const patchOrderItems = (req, res, next) => {
   next()
 }
 
+export const getOrders = (req, res, next) => {
+  const { category = '' } = req.query || {}
+
+  if (category && !DISHES_CATEGORIES.includes(category)) {
+    return errorHandlerResponse.badRequest({
+      res,
+      message: `Category must be one of: ${DISHES_CATEGORIES.join(', ')}`,
+    })
+  }
+
+  next()
+}
+
 export default {
   createOrder,
   patchOrderStatus,
   patchOrderItems,
+  getOrders,
 }

@@ -8,9 +8,6 @@ const createCustomer = async ({ name, email, phone }) => {
 
 const getCustomerById = async (id) => {
   const existing = await db.Customer.findOne({ where: { id } })
-  if (!existing) {
-    throw new Error('Customer not found')
-  }
   return existing
 }
 

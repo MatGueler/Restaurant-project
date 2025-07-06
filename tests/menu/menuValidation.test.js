@@ -2,13 +2,6 @@ import { jest } from '@jest/globals'
 import menuValidation from '../../src/middlewares/validateMenuItem.js'
 import { DISHES_CATEGORIES } from '../../src/constants/dishes.js'
 
-jest.mock('../../src/utils/errorHandlerResponse.js', () => ({
-  badRequest: jest.fn(({ res, message }) => {
-    res.status(400)
-    res.json({ error: message })
-  }),
-}))
-
 describe('Menu - Middleware Validation', () => {
   let res, next
 
@@ -16,12 +9,6 @@ describe('Menu - Middleware Validation', () => {
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
-      send: jest.fn(),
-      end: jest.fn(),
-      locals: {},
-      get: jest.fn(),
-      set: jest.fn(),
-      headersSent: false,
     }
     next = jest.fn()
     jest.clearAllMocks()

@@ -2,7 +2,6 @@ import orderRepository from '../repository/orderRepository.js'
 import customerRepository from '../repository/customerRepository.js'
 import menuRepository from '../repository/menuRepository.js'
 import errorHandler from '../utils/errorHandler.js'
-import { DISHES_CATEGORIES } from '../constants/dishes.js'
 import { ORDER_STATUS } from '../constants/orderStatus.js'
 
 const createOrder = async ({ customer_id, items }) => {
@@ -64,12 +63,6 @@ export const getOrdersByCustomer = async ({
 }
 
 const getOrders = async ({ category, ...query }) => {
-  if (category && !DISHES_CATEGORIES.includes(category)) {
-    throw errorHandler.badRequest(
-      `Category must be one of: ${DISHES_CATEGORIES.join(', ')}`
-    )
-  }
-
   const orders = await orderRepository.getOrders({ category, ...query })
   return orders
 }
@@ -80,11 +73,9 @@ const patchOrderStatus = async (order_id, { status }) => {
     throw errorHandler.notFound('Order not found')
   }
 
-  const updatedOrder = await orderRepository.updateOrderStatus(order_id, {
+  await orderRepository.updateOrderStatus(order_id, {
     status,
   })
-
-  return updatedOrder
 }
 
 const modifyOrder = async (order_id, { items }) => {
@@ -98,10 +89,7 @@ const modifyOrder = async (order_id, { items }) => {
     orderExists.status === ORDER_STATUS.preparing
 
   if (!isValidStatus) {
-    return errorHandlerResponse.badRequest({
-      res,
-      message: 'Order cannot be modified at this stage',
-    })
+    throw errorHandler.badRequest('Order cannot be modified at this stage')
   }
 
   const menuItemIds = items.map((item) => item.menu_item_id)
